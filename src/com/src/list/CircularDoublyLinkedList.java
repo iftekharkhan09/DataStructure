@@ -10,7 +10,7 @@ public class CircularDoublyLinkedList<T> {
 		circularDoublyLinkedList.add("Iftekhar");
 		circularDoublyLinkedList.add("Khan");
 		circularDoublyLinkedList.add(1, "Ahmed");
-		circularDoublyLinkedList.add("Sunny");
+		circularDoublyLinkedList.add("Sunny Khan");
 		circularDoublyLinkedList.add("Iftekhar");
 		circularDoublyLinkedList.addFirst("Data");
 		circularDoublyLinkedList.traverse();
