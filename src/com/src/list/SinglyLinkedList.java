@@ -1,11 +1,11 @@
 package com.src.list;
 
-public class SinglyLinkedListImpl<T> {
+public class SinglyLinkedList<T> {
 	private Node<T> startNode;
 	private int size;
 
 	public static void main(String[] args) {
-		SinglyLinkedListImpl<Object> singlyLinkedListImpl = new SinglyLinkedListImpl<>();
+		SinglyLinkedList<Object> singlyLinkedListImpl = new SinglyLinkedList<>();
 		singlyLinkedListImpl.add("iftekhar");
 		singlyLinkedListImpl.add("khan");
 		singlyLinkedListImpl.add(1, "ifte");
