@@ -33,10 +33,12 @@ public class Stack {
 				break;
 			case 3:
 				System.out.println("The Element of the Stack is :");
+				StringBuffer stackElements = new StringBuffer();
 				for (String s : stack) {
 					if (s != null)
-						System.out.print(s + " ");
+						stackElements.append(s);
 				}
+				System.out.println(stackElements.reverse());
 			}
 		} while (userInput == 1 || userInput == 2 || userInput == 3);
 	}
