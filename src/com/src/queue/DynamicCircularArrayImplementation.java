@@ -2,19 +2,20 @@ package com.src.queue;
 
 import java.util.Scanner;
 
-public class SimpleCircularArrayImplementation<T> {
+public class DynamicCircularArrayImplementation<T> {
 	private int front, rear, size;
 	private String queue[];
-	private static int capacity = 4;
+	private static final int defaultCapacity = 4;
+	private static int capacity = defaultCapacity;
 
-	public SimpleCircularArrayImplementation() {
+	public DynamicCircularArrayImplementation() {
 		this.size = 0;
 		this.front = -1;
 		this.rear = -1;
 		this.queue = new String[capacity];
 	}
 
-	public SimpleCircularArrayImplementation(int capacity) {
+	public DynamicCircularArrayImplementation(int capacity) {
 		this.size = 0;
 		this.front = -1;
 		this.rear = -1;
@@ -22,20 +23,35 @@ public class SimpleCircularArrayImplementation<T> {
 		this.queue = new String[capacity];
 	}
 
+	private void ensureCapacity() {
+		int capacity = Math.max(this.capacity, defaultCapacity);
+		int newCapacity = capacity + capacity >> 1;
+		String newQueue[] = new String[newCapacity];
+		int j = 1, i = front + 1, k = 0;
+		while (j <= this.size) {
+			newQueue[k] = queue[i % capacity];
+			i++;
+			k++;
+			j++;
+		}
+		queue=new String[newCapacity];
+		queue = newQueue;
+		front = -1;
+		rear = this.size - 1;
+	}
+
 	private void enQue(String data) {
 		if (size == capacity)
-			throw new IllegalStateException("Queue : Stack Full Exception");
-		else {
+			ensureCapacity();
 			rear = (rear + 1) % capacity;
 			queue[rear] = data;
 			this.size++;
-		}
 	}
 
 	private void display() {
-		int j = 1,i = front + 1;
+		int j = 1, i = front + 1;
 		while (j <= this.size) {
-			System.out.println(queue[i%capacity]);
+			System.out.println(queue[i % capacity]);
 			j++;
 			i++;
 		}
@@ -59,7 +75,7 @@ public class SimpleCircularArrayImplementation<T> {
 
 	public static void main(String[] args) {
 		int input;
-		SimpleCircularArrayImplementation<String> simpleCircularArrayImplementation = new SimpleCircularArrayImplementation<>();
+		DynamicCircularArrayImplementation<String> simpleCircularArrayImplementation = new DynamicCircularArrayImplementation<>();
 		do {
 			System.out.println("------------------Queue Implementation---------------");
 			System.out.println("Enter Your Choice :");
@@ -90,4 +106,5 @@ public class SimpleCircularArrayImplementation<T> {
 			}
 		} while (input == 1 || input == 2 || input == 3 || input == 4);
 	}
+
 }
