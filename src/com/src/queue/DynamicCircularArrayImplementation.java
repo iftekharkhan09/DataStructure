@@ -24,8 +24,8 @@ public class DynamicCircularArrayImplementation<T> {
 	}
 
 	private void ensureCapacity() {
-		int capacity = Math.max(this.capacity, defaultCapacity);
-		int newCapacity = capacity + capacity >> 1;
+		int queueCapacity = Math.max(this.capacity, defaultCapacity);
+		int newCapacity = queueCapacity + (queueCapacity >> 1);
 		String newQueue[] = new String[newCapacity];
 		int j = 1, i = front + 1, k = 0;
 		while (j <= this.size) {
@@ -34,18 +34,19 @@ public class DynamicCircularArrayImplementation<T> {
 			k++;
 			j++;
 		}
-		queue=new String[newCapacity];
+		queue = new String[newCapacity];
 		queue = newQueue;
 		front = -1;
 		rear = this.size - 1;
+		this.capacity = newCapacity;
 	}
 
-	private void enQue(String data) {
-		if (size == capacity)
+	private void enQueue(String data) {
+		if (size >= capacity)
 			ensureCapacity();
-			rear = (rear + 1) % capacity;
-			queue[rear] = data;
-			this.size++;
+		rear = (rear + 1) % capacity;
+		queue[rear] = data;
+		this.size++;
 	}
 
 	private void display() {
@@ -73,9 +74,26 @@ public class DynamicCircularArrayImplementation<T> {
 		return this.size;
 	}
 
+	/*private void trimToSize() {
+		int newCapacity = this.size+1;
+		String[] newQueue = new String[newCapacity];
+		int j = 1, i = front + 1, k = 0;
+		while (j <= this.size) {
+			newQueue[k] = queue[i % capacity];
+			i++;
+			k++;
+			j++;
+		}
+		String[] queue = new String[newCapacity];
+		queue = newQueue;
+		front = -1;
+		rear = this.size - 1;
+		this.capacity=newCapacity;
+	}*/
+
 	public static void main(String[] args) {
 		int input;
-		DynamicCircularArrayImplementation<String> simpleCircularArrayImplementation = new DynamicCircularArrayImplementation<>();
+		DynamicCircularArrayImplementation<String> dynamicCircularArrayImplementation = new DynamicCircularArrayImplementation<>();
 		do {
 			System.out.println("------------------Queue Implementation---------------");
 			System.out.println("Enter Your Choice :");
@@ -89,20 +107,20 @@ public class DynamicCircularArrayImplementation<T> {
 			case 1:
 				System.out.println("Enter the Element to insert into the queue");
 				String data = new Scanner(System.in).next();
-				simpleCircularArrayImplementation.enQue(data);
+				dynamicCircularArrayImplementation.enQueue(data);
 				break;
 			case 2:
-				System.out.println("The Dequeued Element is :" + simpleCircularArrayImplementation.deQueue());
+				System.out.println("The Dequeued Element is :" + dynamicCircularArrayImplementation.deQueue());
 				break;
 			case 3:
 				System.out.println("The Elements of the Queue are :");
-				simpleCircularArrayImplementation.display();
+				dynamicCircularArrayImplementation.display();
 				break;
 			case 4:
-				System.out.println("The Size of the Queue is : " + simpleCircularArrayImplementation.getSize());
+				System.out.println("The Size of the Queue is : " + dynamicCircularArrayImplementation.getSize());
 				break;
 			default:
-				break;
+				System.out.println("Invalid Choice!!");
 			}
 		} while (input == 1 || input == 2 || input == 3 || input == 4);
 	}

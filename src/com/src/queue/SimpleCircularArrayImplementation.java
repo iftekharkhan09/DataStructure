@@ -22,7 +22,7 @@ public class SimpleCircularArrayImplementation<T> {
 		this.queue = new String[capacity];
 	}
 
-	private void enQue(String data) {
+	private void enQueue(String data) {
 		if (size == capacity)
 			throw new IllegalStateException("Queue : Stack Full Exception");
 		else {
@@ -73,7 +73,7 @@ public class SimpleCircularArrayImplementation<T> {
 			case 1:
 				System.out.println("Enter the Element to insert into the queue");
 				String data = new Scanner(System.in).next();
-				simpleCircularArrayImplementation.enQue(data);
+				simpleCircularArrayImplementation.enQueue(data);
 				break;
 			case 2:
 				System.out.println("The Dequeued Element is :" + simpleCircularArrayImplementation.deQueue());
