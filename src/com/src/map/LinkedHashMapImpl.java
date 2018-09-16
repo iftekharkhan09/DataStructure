@@ -71,6 +71,36 @@ public class LinkedHashMapImpl<K, V> {
 
 	}
 
+	public V remove(K key) {
+		Entry<K, V> entry = hashTable[getBucketIndex(key)];
+		Entry<K, V> next = null;
+		Entry<K, V> prev = null;
+		if (entry == header) {
+			next = entry.next;
+			header = next;
+			next.prev = null;
+			V value = entry.value;
+			entry = null;
+			return value;
+		} else {
+			while (entry != null) {
+				prev = entry.prev;
+				if (entry.key.equals(key)) {
+					next = entry.next;
+					prev.next = next;
+					if (next != null)
+						next.prev = prev;
+					V value = entry.value;
+					entry = null;
+					return value;
+				}
+				entry = entry.next;
+			}
+		}
+		return null;
+
+	}
+
 	private V get(K key) {
 		int bucketIndex = getBucketIndex(key);
 		Entry<K, V> current = hashTable[bucketIndex];
@@ -101,7 +131,7 @@ public class LinkedHashMapImpl<K, V> {
 		hashMapImpl.put(1, "AA");
 		hashMapImpl.put(18, "C");
 		hashMapImpl.remove(18);
-		System.out.println(hashMapImpl.get(1));
+		// System.out.println(hashMapImpl.get(1));
 		hashMapImpl.display();
 	}
 }
